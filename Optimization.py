@@ -45,7 +45,7 @@ class SAA(object):
     def calPosibility(self, arg, newArg):
         return (exp(-(newArg - arg) / self.T))
 
-    def startIter(self):
+    def cal(self):
         x = self.initArg()
         self.bestX = x
         while self.T > self.Tmin:
@@ -172,7 +172,7 @@ class GA(object):
         plt.plot(X, Y)
         plt.show()
 
-    def startIter(self):
+    def cal(self):
 
         while self.iter <= self.maxiter:
             self.generateNext()
@@ -208,7 +208,7 @@ class ENUM(object):
         tem=nowList+[1]
         self.generateOrder(tem,size+1)
 
-    def startCal(self):
+    def cal(self):
         self.generateOrder([],1)
         n=len(self.enumList)
         if self.mode==ENUM.FINDMAX:

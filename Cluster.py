@@ -8,7 +8,21 @@ sys.path.append("..")
 from Statistics import PCA
 
 class KMEANS(object):
-    color=['green','red','blue','yellow','purple']
+    color=['green','red','blue','yellow','purple','orange','deeppink','aliceblue', 'aqua', 'aquamarine', 'azure', 
+    'beige', 'bisque', 'black', 'blanchedalmond', 'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse', 'chocolate',
+     'coral', 'cornflowerblue', 'cornsilk', 'crimson', 'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray', 'darkgreen', 
+     'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen', 'darkslateblue',
+      'darkslategray', 'darkturquoise', 'darkviolet', 'deepskyblue', 'dimgray', 'dodgerblue', 'firebrick', 'floralwhite', 
+      'forestgreen', 'fuchsia', 'gainsboro', 'gold', 'goldenrod', 'gray', 'greenyellow', 'honeydew', 'hotpink', 
+      'indianred', 'indigo', 'ivory', 'khaki', 'lavender', 'lavenderblush', 'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 
+      'lightcyan', 'lightgoldenrodyellow', 'lightgreen', 'lightgray', 'lightpink', 'lightsalmon', 'lightseagreen', 'lightskyblue', 
+      'lightslategray', 'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen', 'magenta', 'maroon', 'mediumaquamarine', 
+      'mediumblue', 'mediumorchid', 'mediumpurple', 'mediumseagreen', 'mediumslateblue', 'mediumspringgreen', 'mediumturquoise', 
+      'mediumvioletred', 'midnightblue', 'mintcream', 'mistyrose', 'moccasin', 'navajowhite', 'navy', 'oldlace', 'olive', 'olivedrab', 
+      'orangered', 'orchid', 'palegoldenrod', 'palegreen', 'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 'peru', 
+      'pink', 'plum', 'powderblue', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon', 'sandybrown', 'seagreen', 
+      'seashell', 'sienna', 'silver', 'skyblue', 'slateblue', 'slategray', 'snow', 'springgreen', 'steelblue', 'tan', 'teal', 'thistle',
+      'tomato', 'turquoise', 'violet', 'wheat', 'yellowgreen']
     def __init__(self,data,num):
         self.num=num
         if type(data)==str:
@@ -58,7 +72,7 @@ class KMEANS(object):
             pointNum[self.belong[i]]+=1
         self.center=[[row/pointNum[i] for row in col] for i,col in enumerate(newCenter)]
             
-    def startIter(self):
+    def cal(self):
         self.initCenter()
         lastCenter=[]
         while not operator.eq(lastCenter,self.center):

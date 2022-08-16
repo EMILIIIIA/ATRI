@@ -6,7 +6,7 @@ class PCA(object):
         self.k=k
         self.ddof=ddof
 
-    def startCal(self):
+    def cal(self):
         self.matrix=self.matrix-self.matrix.mean(axis=0)
         cov=np.cov(self.matrix.T,ddof=self.ddof)
         D,V=np.linalg.eig(cov)

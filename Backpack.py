@@ -10,7 +10,7 @@ class DP(object):
         self.dp=[0 for col in range(0,self.capacity+1)]
 
     
-    def startDP(self):
+    def cal(self):
         for i in range(self.num):
             for j in range(self.capacity,0,-1):
                 if j>=self.size[i]:

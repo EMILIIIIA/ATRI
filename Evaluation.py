@@ -19,7 +19,7 @@ class AHP(object):
         return True
         
 
-    def startCal(self):
+    def cal(self):
 
         if not self.isReciprocalMatrix(self.matrix):
             print("评价矩阵有误！")
@@ -128,7 +128,7 @@ class EWM(object):
         weight=[(entropy[col])/entropySum for col in range(n)]
         return np.array(weight)
 
-    def startCal(self):
+    def cal(self):
         print("权重：",weight:=self.calWeight())
 
         res=np.sum(np.multiply(self.dataMatrix,weight),axis=1)

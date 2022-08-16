@@ -5,21 +5,21 @@ import sys
 
 
 class ACO:
-    # 懒得给内部类传参了，所以开成了静态变量，反正大概率没人同时给这个类创建多个实例
-    alpha, beta, rho, q = 0, 0, 0, 0 #信息素权重常数、启发函数权重常数、信息素挥发常数、信息素常数
-    cityNum, antNum, maxIter = 0, 100, 100 # 城市数量 蚂蚁数量 最大迭代次数
-    distanceX, distanceY, dis, pheromone = [], [], [], [] #城市横坐标 城市纵坐标 城市间距离 信息素矩阵
+    # # 懒得给内部类传参了，所以开成了静态变量，反正大概率没人同时给这个类创建多个实例
+    # alpha, beta, rho, q = 0, 0, 0, 0 #信息素权重常数、启发函数权重常数、信息素挥发常数、信息素常数
+    # cityNum, antNum, maxIter = 0, 100, 100 # 城市数量 蚂蚁数量 最大迭代次数
+    # distanceX, distanceY, dis, pheromone = [], [], [], [] #城市横坐标 城市纵坐标 城市间距离 信息素矩阵
 
     def __init__(self, inputX, inputY, inputAlpha=4, inputBeta=4, inputRho=0.3, inputQ=100, inputAnts=50,
                  inputIter=100):
         self.__init_data(inputX, inputY, inputAlpha, inputBeta, inputRho, inputQ, inputAnts, inputIter)# 初始化数据
         self.__init_ants()#初始化蚁群
 
-    def runTSP(self):
+    def cal(self):
         # 初始化画布
         self.__init_canvas()
         # 进入迭代循环
-        for lp in range(ACO.maxIter):
+        for lp in range(self.maxIter):
             for ant in self.ants:
                 ant.search_path()# 搜索一条路径并与当前最优蚂蚁比较
                 if ant.totalDis < self.bestAnt.totalDis:
@@ -36,15 +36,15 @@ class ACO:
 
     def __init_data(self, inputX, inputY, inputAlpha, inputBeta, inputRho, inputQ, inputAnts, inputIter):
         #参数赋值
-        ACO.alpha, ACO.beta, ACO.rho, ACO.q = inputAlpha, inputBeta, inputRho, inputQ
-        ACO.distanceX, ACO.distanceY = copy.deepcopy(inputX), copy.deepcopy(inputY)
+        self.alpha, self.beta, self.rho, self.q = inputAlpha, inputBeta, inputRho, inputQ
+        self.distanceX, self.distanceY = copy.deepcopy(inputX), copy.deepcopy(inputY)
         #判断横纵坐标是否数量相同
-        if len(ACO.distanceX) != len(ACO.distanceY):
+        if len(self.distanceX) != len(self.distanceY):
             print(u"坐标输入错误!")
             sys.exit()
-        ACO.cityNum,ACO.antNum ,ACO.maxIter= len(ACO.distanceX), inputAnts,inputIter
-        ACO.dis = copy.deepcopy([[0.0 for col in range(ACO.cityNum)] for row in range(ACO.cityNum)])
-        ACO.pheromone = copy.deepcopy([[1.0 for col in range(ACO.cityNum)] for row in range(ACO.cityNum)])
+        self.cityNum,self.antNum ,self.maxIter= len(self.distanceX), inputAnts,inputIter
+        self.dis = copy.deepcopy([[0.0 for col in range(self.cityNum)] for row in range(self.cityNum)])
+        self.pheromone = copy.deepcopy([[1.0 for col in range(self.cityNum)] for row in range(self.cityNum)])
         self.nodes = []  # 节点画布上坐标
         # 初始化城市间距离
         for i in range(self.cityNum):
@@ -78,7 +78,7 @@ class ACO:
             self.canvas.delete(item)
 
         # 初始化城市节点
-        maxX, maxY = max(ACO.distanceX), max(ACO.distanceY)
+        maxX, maxY = max(self.distanceX), max(self.distanceY)
         for i in range(len(self.distanceX)):
             # 计算画布上坐标
             x, y = int(float(self.__displayWidth) / maxX * self.distanceX[i]), int(
@@ -102,8 +102,8 @@ class ACO:
                                     )
 
     def __init_ants(self):
-        self.ants = [self.Ant(i1) for i1 in range(self.antNum)]  # 初始化蚁群
-        self.bestAnt = self.Ant(-1)  # 初始化最优解
+        self.ants = [self.Ant(i1,self.cityNum,self.pheromone,self.alpha,self.beta,self.dis) for i1 in range(self.antNum)]  # 初始化蚁群
+        self.bestAnt = self.Ant(-1,self.cityNum,self.pheromone,self.alpha,self.beta,self.dis)  # 初始化最优解
         self.bestAnt.totalDis = 2147483647  # 初始最大距离，直接访问数据成员不是好习惯，小孩子不要学坏
         self.iterTimes = 1  # 初始化迭代次数
 
@@ -119,7 +119,7 @@ class ACO:
         # 更新所有城市之间的信息素，旧信息素衰减加上新信息素
         for i in range(self.cityNum):
             for j in range(self.cityNum):
-                self.pheromone[i][j] = self.pheromone[i][j] * ACO.rho + tempPheromone[i][j]
+                self.pheromone[i][j] = self.pheromone[i][j] * self.rho + tempPheromone[i][j]
 
     def __line(self, path):
         self.canvas.delete("lines")  # 删除原线
@@ -153,15 +153,20 @@ class ACO:
         self.__displayWidth, self.__displayHeight = inX, inY
 
     class Ant:
-        def __init__(self, ID):  # 初始化变量
+        def __init__(self, ID,cityNum,pheromone,alpha,beta,dis):  # 初始化变量
             self.ID = ID  # 蚂蚁的id
+            self.cityNum=cityNum
+            self.pheromone=pheromone
+            self.alpha=alpha
+            self.beta=beta
+            self.dis=dis
             self.__init_data()
 
         def search_path(self):  # 外部调用需要的函数
             # 初始化数据
             self.__init_data()
             # 搜素路径，遍历完所有城市为止
-            while self.cnt < ACO.cityNum:
+            while self.cnt < self.cityNum:
                 # 移动到下一个城市
                 nextCity = self.__choose_next()
                 self.__move(nextCity)
@@ -172,28 +177,28 @@ class ACO:
             self.path = []  # 已经走过的路径
             self.totalDis = 0.0  # 已经走过的距离
             self.currentCity = -1  # 初始化当前的城市
-            self.canVis = [True for i in range(ACO.cityNum)]  # 可以访问的城市列表
+            self.canVis = [True for i in range(self.cityNum)]  # 可以访问的城市列表
             self.cnt = 1  # 已经访问过的城市数量
 
-            tempCity = random.randint(0, ACO.cityNum - 1)  # 随机初始点
+            tempCity = random.randint(0, self.cityNum - 1)  # 随机初始点
             self.currentCity = tempCity  # 更新当前蚂蚁所在城市
             self.path.append(tempCity)  # 将初始点加入路径
             self.canVis[tempCity] = False  # 给初始点打标记
 
         def __choose_next(self):
             nextCity = -1
-            selectProb = [0.0 for i in range(ACO.cityNum)]  # 定义一个存储去下个城市的概率的表
+            selectProb = [0.0 for i in range(self.cityNum)]  # 定义一个存储去下个城市的概率的表
             totalProb = 0.0
 
-            for i in range(ACO.cityNum):  # 获取去下一个城市的概率
+            for i in range(self.cityNum):  # 获取去下一个城市的概率
                 if self.canVis[i]:  # 如果这个城市不可以访问那么直接不用算了，好耶
                     # 通过公式计算概率
-                    selectProb[i] = pow(ACO.pheromone[self.currentCity][i], ACO.alpha) * pow((1.0 / ACO.dis[self.currentCity][i]),ACO.beta)
+                    selectProb[i] = pow(self.pheromone[self.currentCity][i], self.alpha) * pow((1.0 / self.dis[self.currentCity][i]),self.beta)
                     totalProb += selectProb[i]
 
             if totalProb > 0.0:  # 选择城市代码
                 tempProb = random.uniform(0.0, totalProb)  # 产生一个0~totalProb之间的随机概率
-                for i in range(ACO.cityNum):
+                for i in range(self.cityNum):
                     if self.canVis[i]:
                         tempProb -= selectProb[i]  # 轮次相减
                         if tempProb < 0.0:
@@ -201,27 +206,27 @@ class ACO:
                             break
 
             if (nextCity == -1):  # 保险起见，如果没有产生，则顺序选择一个城市
-                nextCity = random.randint(0, ACO.cityNum - 1)
+                nextCity = random.randint(0, self.cityNum - 1)
                 while self.canVis[nextCity] == False:  # if==False,说明已经遍历过了
-                    nextCity = random.randint(0, ACO.cityNum - 1)
+                    nextCity = random.randint(0, self.cityNum - 1)
             return nextCity
 
         def __cal_total_distance(self):  # 计算路径的总距离
 
             tempDistance = 0.0
             start, end = 0, 0
-            for i in range(1, ACO.cityNum):
+            for i in range(1, self.cityNum):
                 start, end = self.path[i], self.path[i - 1]
-                tempDistance += ACO.dis[start][end]
+                tempDistance += self.dis[start][end]
             # 最后加上末尾城市回到初始城市的距离，构成回路
             end = self.path[0]
-            tempDistance += ACO.dis[start][end]
+            tempDistance += self.dis[start][end]
             self.totalDis = tempDistance
 
         def __move(self, nextCity):  # 移动函数
 
             self.path.append(nextCity)
             self.canVis[nextCity] = False
-            self.totalDis += ACO.dis[self.currentCity][nextCity]
+            self.totalDis += self.dis[self.currentCity][nextCity]
             self.currentCity = nextCity
             self.cnt += 1
