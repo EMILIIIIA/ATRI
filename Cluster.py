@@ -86,7 +86,7 @@ class KMEANS(object):
         plt.figure(figsize=(10, 10), dpi=100)
         if self.m>2:
             temPCA=PCA(self.dataMatrix,2,1)
-            point=temPCA.startCal()[1]
+            point=temPCA.cal()[1]
         else:
             point=self.dataMatrix.tolist()
         for i in range(len(point)):

@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
+import Tools
 from math import log
-
 
 class AHP(object):
 

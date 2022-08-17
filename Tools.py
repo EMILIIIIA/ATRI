@@ -42,21 +42,25 @@ def pointBest2largerBest(data, value):
     return data
 
 
-def smallerBest2largerBest(data, col):
+def smallerBest2largerBest(data):
     data=np.array(data).astype(float)
-    n = np.max(data[:, col])
-    size = np.size(data, axis=0)
-    for i in range(size):
-        data[i, col] = n-data[i, col]
+    n = np.size(data, axis=0)
+    m = np.size(data, axis=1)
+    for i in range(m):
+        maxNum = np.max(data[:, i])
+        for j in range(n):
+            data[j, i] = maxNum-data[j, i]
     return data
 
-def terminalBest2largerBest(data, col, value):
+def terminalBest2largerBest(data, value):
     data=np.array(data).astype(float)
-    size = np.size(data, axis=0)
-    temValue = []
-    for i in range(size):
-        temValue.append(abs(data[i, col]-value))
-    n = max(temValue)
-    for i in range(size):
-        data[i, col] = float(temValue[i])/n
+    n = np.size(data, axis=0)
+    m = np.size(data, axis=1)
+    for i in range(m):
+        temValue = []
+        for j in range(n):
+            temValue.append(abs(data[j, i]-value))
+        maxNum = max(temValue)
+        for j in range(n):
+            data[j, i] = float(temValue[j])/maxNum
     return data

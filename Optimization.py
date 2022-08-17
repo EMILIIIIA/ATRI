@@ -98,8 +98,7 @@ class GA(object):
             pos = [random.randint(0, self.length-1),
                    random.randint(0, self.length-1)]
             if self.lowBound[pos[0]] <= self.gene[pos[1]] <= self.upBound[pos[0]] and self.lowBound[pos[1]] <= self.gene[pos[0]] <= self.upBound[pos[1]]:
-                self.gene[pos[0]], self.gene[pos[1]
-                                             ] = self.gene[pos[1]], self.gene[pos[0]]
+                self.gene[pos[0]], self.gene[pos[1]] = self.gene[pos[1]], self.gene[pos[0]]
             return self
 
     def __init__(self, population, size, lowBound, upBound, function, maxiter, aRate, aMax, cRate):
