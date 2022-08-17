@@ -8,3 +8,8 @@ Single/ENUM.py
 Single/EWM.py
 Single/FCE.py
 Single/GA.py
+Single/
+.vscode/
+__pycache__/
+.gitignore
+data.csv

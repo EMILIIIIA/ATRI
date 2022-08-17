@@ -13,9 +13,10 @@ def readcsv(path):
             temMatrix.append(list(map(lambda x: float(x), row[1:])))
 
     data = np.array(temMatrix)
-    return names,elements,data
+    return {"names":names,"elements":elements,"data":data}
 
 def minmaxmap(data):
+    data=np.array(data).astype(float)
     n = np.size(data, axis=0)
     m = np.size(data, axis=1)
     for i in range(m):
@@ -27,30 +28,35 @@ def minmaxmap(data):
 
 
 def pointBest2largerBest(data, value):
+    data=np.array(data).astype(float)
     n = np.size(data, axis=0)
     m = np.size(data, axis=1)
-    temValue = []
-    for i in range():
+
+    for i in range(m):
+        temValue = []
         for j in range(n):
             temValue.append(abs(data[j, i]-value))
         maxNum = max(temValue)
         for j in range(n):
-            data[j, i] = 1-float(temValue[i])/maxNum
+            data[j, i] = 1-float(temValue[j])/maxNum
     return data
 
 
-def smallerBest2largerBest(self, col):
-    n = np.max(self.dataMatrix[:, col])
-    size = np.size(self.dataMatrix, axis=0)
+def smallerBest2largerBest(data, col):
+    data=np.array(data).astype(float)
+    n = np.max(data[:, col])
+    size = np.size(data, axis=0)
     for i in range(size):
-        self.dataMatrix[i, col] = n-self.dataMatrix[i, col]
+        data[i, col] = n-data[i, col]
+    return data
 
-
-def terminalBest2largerBest(self, col, value):
-    size = np.size(self.dataMatrix, axis=0)
+def terminalBest2largerBest(data, col, value):
+    data=np.array(data).astype(float)
+    size = np.size(data, axis=0)
     temValue = []
     for i in range(size):
-        temValue.append(abs(self.dataMatrix[i, col]-value))
+        temValue.append(abs(data[i, col]-value))
     n = max(temValue)
     for i in range(size):
-        self.dataMatrix[i, col] = float(temValue[i])/n
+        data[i, col] = float(temValue[i])/n
+    return data
