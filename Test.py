@@ -6,6 +6,7 @@ import numpy as np
 from Tools import readcsv
 import Tools
 import FuncFit
+from Evaluation import EWM
 # A=[[random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100)] for i in range(400)]
 # k=KMEANS(A,6)
 # k.cal()
@@ -24,9 +25,18 @@ import FuncFit
 #print(Tools.minmaxmap(data))
 
 
-#[[random.uniform(-100,100)] for i in range(400)]
-X=np.mat([-i for i in range(10)])
-Y=np.mat([5*i for i in range(10)])
-o=FuncFit.OLS(X,Y)
-o.cal()
-o.plot()
+# X=np.mat([i for i in range(10)])
+# Y=np.mat([5*i+random.random()*10 for i in range(10)])
+# o=FuncFit.OLS(X,Y)
+# print(o.cal())
+# o.plot()
+
+# X=np.array([i for i in range(-10,10)])
+# Y=np.array([i**3-10*i**2+3*i+random.random()*10 for i in range(-10,10)])
+# f=FuncFit.PloyFit(X,Y,10)
+# print(f.cal())
+# f.plot()
+
+
+e=EWM("./data.csv",[1,2])
+e.cal()

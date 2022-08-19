@@ -42,7 +42,7 @@ class AHP(object):
 
 
 class EWM(object):
-    def __init__(self,path,bigBest,smallBest,pointBest,terminalBest,pBestValue,tBestValue):
+    def __init__(self,path,bigBest,smallBest=[],pointBest=[],terminalBest=[],pBestValue=0,tBestValue=0):
         
         self.elements=[]
         self.names=[]

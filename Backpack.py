@@ -1,13 +1,13 @@
 import numpy as np
 
-class DP(object):
+class DP01(object):
 
     def __init__(self,num,capacity,size,price):
         self.num=num
         self.size=size
         self.price=price
         self.capacity=capacity
-        self.dp=[0 for col in range(0,self.capacity+1)]
+        self.dp=[0 for _ in range(0,self.capacity+1)]
 
     
     def cal(self):
