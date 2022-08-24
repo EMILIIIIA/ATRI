@@ -13,3 +13,4 @@ Single/
 __pycache__/
 .gitignore
 data.csv
+GATSP.py
