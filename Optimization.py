@@ -72,7 +72,7 @@ class SAA(object):
             #降温
             self.T *= self.delta
 
-        return [self.bestX, self.bestRes]
+        return {"x":self.bestX, "result":self.bestRes}
 
 
 class GA(object):
@@ -230,4 +230,4 @@ class ENUM(object):
                 elif self.ans==self.func(self.enumList[i]):
                     self.index.append(self.enumList[i])
 
-        return self.ans,self.index
+        return {"result":self.ans,"index":self.index}

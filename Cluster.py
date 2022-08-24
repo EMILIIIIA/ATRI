@@ -82,11 +82,14 @@ class KMEANS(object):
                 self.belong[i]=self.selectCneter(point)
             self.getNewCenter()
 
+        return self.belong
+
     def plot(self):
         plt.figure(figsize=(10, 10), dpi=100)
         if self.m>2:
             temPCA=PCA(self.dataMatrix,2,1)
-            point=temPCA.cal()[1]
+            temPCA.show=False
+            point=temPCA.cal()["result"]
         else:
             point=self.dataMatrix.tolist()
         for i in range(len(point)):

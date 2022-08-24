@@ -22,8 +22,10 @@ class OLS(object):
         return self.res
 
     def plot(self):
+        #多元函数降维后画图，未实现
         if np.size(self.X,axis=1)>=2:
             myPCA=PCA(self.X,2,0)
+            myPCA.show=False
             myPCA.cal()
 
         minX,maxX=np.min(self.X),np.max(self.X)

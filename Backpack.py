@@ -7,6 +7,7 @@ class DP01(object):
         self.size=size
         self.price=price
         self.capacity=capacity
+        self.show=True
         self.dp=[0 for _ in range(0,self.capacity+1)]
 
     
@@ -15,4 +16,6 @@ class DP01(object):
             for j in range(self.capacity,0,-1):
                 if j>=self.size[i]:
                     self.dp[j]=max(self.dp[j],self.dp[j-self.size[i]]+self.price[i])
-        print(self.dp[self.capacity])
+        if self.show==True:
+            print("最好的结果为: ",self.dp[self.capacity])
+        return self.dp[self.capacity]

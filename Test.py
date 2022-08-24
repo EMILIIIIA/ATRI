@@ -6,7 +6,7 @@ import numpy as np
 from Tools import readcsv
 import Tools
 import FuncFit
-from Evaluation import EWM, TOPSIS
+from Evaluation import EWM, EWMTOPSIS, TOPSIS
 # A=[[random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100)] for i in range(400)]
 # k=KMEANS(A,6)
 # k.cal()
@@ -38,12 +38,15 @@ from Evaluation import EWM, TOPSIS
 # f.plot()
 
 
-# e=EWM("./data.csv",[1,2])
+# e=EWM("./data.csv")
 # e.cal()
 
-a=TOPSIS("./data.csv")
-a.cal()
+# a=TOPSIS("./data.csv")
+# a.cal()
 
 # #print(Tools.minmaxmap([[0,0,0,0],[1,1,1,1],[2,2,2,2]]))
 # print(Tools.minmaxmap([1,2,3,4]))
+
+
+
 
