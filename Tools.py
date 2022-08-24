@@ -1,3 +1,4 @@
+from traceback import print_tb
 import numpy as np
 import csv
 
@@ -16,16 +17,33 @@ def readcsv(path):
     return {"names":names,"elements":elements,"data":data}
 
 def minmaxmap(data):
-    data=np.array(data).astype(float)
+    data=np.mat(data).astype(float)
+    if np.size(data,axis=0)==1:
+        data=data.T
     n = np.size(data, axis=0)
     m = np.size(data, axis=1)
     for i in range(m):
-        maxValue = np.max(data[:, i])
-        minValue = np.min(data[:, i])
+        maxValue = np.max(data[:,i])
+        minValue = np.min(data[:,i])
         for j in range(n):
-            data[j][i] = (data[j][i]-minValue)/(maxValue-minValue)
+            data[j,i] = (data[j,i]-minValue)/(maxValue-minValue)
     return data
 
+def rmsmap(data):
+    data=np.array(data).astype(float)
+    n = np.size(data, axis=0)
+    m = np.size(data, axis=1)
+    rms=np.array([])
+    for i in range(m):
+        sumsquare=0
+        for j in range(n):
+            sumsquare+=data[j][i]**2
+        sumsquare=sumsquare**0.5
+        rms=np.append(rms,sumsquare)
+    for i in range(m):
+        for j in range(n):
+            data[j][i] /= rms[i]
+    return data
 
 def pointBest2largerBest(data, value):
     data=np.array(data).astype(float)

@@ -88,6 +88,7 @@ class EWM(object):
         print(self.dataMatrix)
 
 
+
     def pointBest2bigBest(self,col,value):
         size=np.size(self.dataMatrix,axis=0)
         temValue=[]
@@ -134,4 +135,35 @@ class EWM(object):
         res=np.sum(np.multiply(self.dataMatrix,weight),axis=1)
         for i in range(np.size(self.dataMatrix,axis=0)):
             print("结果：",self.names[i],res[i])
+
+class TOPSIS(object):
+    def __init__(self,data):
+        if type(data)==str:
+            self.data=Tools.readcsv(data)["data"]
+        else:
+            self.data=np.array(data)
+
+        self.n=np.size(self.data,axis=0)
+        self.m=np.size(self.data,axis=1)
     
+    def cal(self):
+        self.data=Tools.rmsmap(self.data)
+        self.res=np.array([0.0 for col in range(self.n)])
+        maxVec=np.max(self.data,axis=0)
+        minVec=np.min(self.data,axis=0)
+        for i in range(self.n):
+            Dimax,Dimin=0,0
+            for j in range(self.m):
+                #print(self.data,j,i)
+                Dimax+=(maxVec[j]-self.data[i][j])**2
+                Dimin+=(minVec[j]-self.data[i][j])**2
+            Dimax**=0.5
+            Dimin**=0.5
+            self.res[i]=Dimin/(Dimin+Dimax)
+        self.res=Tools.minmaxmap(self.res)
+        print(self.res)
+        return self.res
+
+
+class EWMTOPSIS(TOPSIS):
+    '''论文名: Combining Entropy Weight and TOPSIS Method for Information System Selection'''

@@ -6,7 +6,7 @@ import numpy as np
 from Tools import readcsv
 import Tools
 import FuncFit
-from Evaluation import EWM
+from Evaluation import EWM, TOPSIS
 # A=[[random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100)] for i in range(400)]
 # k=KMEANS(A,6)
 # k.cal()
@@ -19,10 +19,10 @@ from Evaluation import EWM
 
 # data=readcsv("./data.csv")["data"]
 # data=np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12]])
-# print(np.array([[1,3,4,6,19]]).T,'\n\n',Tools.terminalBest2largerBest(np.array([[1,3,4,6,19],[5,1,3,2,6],[1,1,4,5,1]]).T,5))
-#data=np.hstack((Tools.pointBest2largerBest(data[:,[0,2]],7),Tools.pointBest2largerBest(data[:,[1,3]],5)))
-#print(data)
-#print(Tools.minmaxmap(data))
+# #print(np.array([[1,3,4,6,19]]).T,'\n\n',Tools.terminalBest2largerBest(np.array([[1,3,4,6,19],[5,1,3,2,6],[1,1,4,5,1]]).T,5))
+# #data=np.hstack((Tools.pointBest2largerBest(data[:,[0,2]],7),Tools.pointBest2largerBest(data[:,[1,3]],5)))
+# print(data)
+# print(Tools.rmsmap(data))
 
 
 # X=np.mat([i for i in range(10)])
@@ -38,5 +38,12 @@ from Evaluation import EWM
 # f.plot()
 
 
-e=EWM("./data.csv",[1,2])
-e.cal()
+# e=EWM("./data.csv",[1,2])
+# e.cal()
+
+a=TOPSIS("./data.csv")
+a.cal()
+
+# #print(Tools.minmaxmap([[0,0,0,0],[1,1,1,1],[2,2,2,2]]))
+# print(Tools.minmaxmap([1,2,3,4]))
+
