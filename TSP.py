@@ -5,7 +5,6 @@ import sys
 
 
 class ACO:
-    # # 懒得给内部类传参了，所以开成了静态变量，反正大概率没人同时给这个类创建多个实例
     # alpha, beta, rho, q = 0, 0, 0, 0 #信息素权重常数、启发函数权重常数、信息素挥发常数、信息素常数
     # cityNum, antNum, maxIter = 0, 100, 100 # 城市数量 蚂蚁数量 最大迭代次数
     # distanceX, distanceY, dis, pheromone = [], [], [], [] #城市横坐标 城市纵坐标 城市间距离 信息素矩阵
