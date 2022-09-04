@@ -3,8 +3,6 @@ from matplotlib import pyplot as plt
 import random
 import csv
 import operator
-import sys
-sys.path.append("..")
 from Statistics import PCA
 
 class KMEANS(object):

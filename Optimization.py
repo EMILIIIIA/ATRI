@@ -76,7 +76,7 @@ class SAA(object):
 
 
 class GA(object):
-
+    '''最优化问题的遗传算法解法，请将目标函数与约束条件写在一个函数内传入'''
     class GAunit(object):
         def __init__(self, gene, aMax, lowBound, upBound):
             self.gene = gene

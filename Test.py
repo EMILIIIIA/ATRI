@@ -7,10 +7,10 @@ from Tools import readcsv
 import Tools
 import FuncFit
 from Evaluation import EWM, EWMTOPSIS, TOPSIS
-# A=[[random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100)] for i in range(400)]
-# k=KMEANS(A,6)
-# k.cal()
-# k.plot()
+A=[[random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100),random.uniform(-100,100)] for i in range(400)]
+k=KMEANS(A,6)
+k.cal()
+k.plot()
 
 # X=random.sample(range(10,600),50) 
 # Y=random.sample(range(10,600),50)
@@ -46,6 +46,9 @@ from Evaluation import EWM, EWMTOPSIS, TOPSIS
 
 # #print(Tools.minmaxmap([[0,0,0,0],[1,1,1,1],[2,2,2,2]]))
 # print(Tools.minmaxmap([1,2,3,4]))
+
+
+
 
 
 
